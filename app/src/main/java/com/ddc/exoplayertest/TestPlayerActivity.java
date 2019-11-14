@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ddc.exoplayertest.permission.OnPermissionCallback;
 import com.ddc.exoplayertest.permission.PermissionManager;
@@ -39,6 +40,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.FileDataSource;
 import com.google.android.exoplayer2.util.Util;
@@ -74,6 +76,8 @@ public class TestPlayerActivity extends AppCompatActivity implements View.OnClic
     Button btDecrypt;
     @BindView(R.id.bt_encryplay)
     Button btEncryplay;
+    @BindView(R.id.player_view)
+    SimpleExoPlayerView simpleExoPlayerView;
     private ExtractorMediaSource videoSource;
     private String url = "https://storage.googleapis.com/exoplayer-test-media-0/play.mp3";
 
@@ -90,7 +94,19 @@ public class TestPlayerActivity extends AppCompatActivity implements View.OnClic
     private int fastForwardMs = 2;//快进
     private AitripDataSourceFactory aitripFactory;
     private String Aikey = "1231231241241243";
-    private static final String deng  = "/sdcard/Music/终于等到你.mp3";
+
+    //private static String deng = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
+    //        "Music"+ File.separator+"m12.mp3";
+
+    //private static String deng = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
+    //        "m12.mp3";
+
+    //视频
+    private static String deng = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
+            "6030286a31c824c96564850929e996c1.mp4";
+
+    //private static String deng = "file:///android_asset"+ File.separator +
+    //        "fileSequence0.ts";
 
     private static String FildDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
             "ExoPlayerTest";
@@ -143,6 +159,8 @@ public class TestPlayerActivity extends AppCompatActivity implements View.OnClic
                          },
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        //deng =this.getAssets().toString()+ File.separator + "fileSequence0.ts";
     }
 
     private void initPlayer(String url) {
@@ -173,6 +191,9 @@ public class TestPlayerActivity extends AppCompatActivity implements View.OnClic
                 aitripFactory, extractorsFactory, null, null);
         // 3.创建播放器
         player = ExoPlayerFactory.newSimpleInstance(this, trackSelector, loadControl);
+
+        //将player和view绑定 (播放视频)
+        simpleExoPlayerView.setPlayer(player);
 
         //SimpleExoPlayerView simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.exo_player);
         //设置监听器
@@ -352,12 +373,13 @@ public class TestPlayerActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.bt_encrypt://加密
-                AESHelper.encryptFile(Aikey, deng, FildDir + "/" + "终于等到你.mp3.aitrip");
+            case R.id.bt_encrypt://加密  /sdcard/Music\/m12.mp3
+                AESHelper.encryptFile(Aikey, deng, FildDir + "/" + "m12.mp3.aitrip");
+                ToastUtil.show("加密后形成的文件为"+FildDir + "/" + "m12.mp3.aitrip",Toast.LENGTH_LONG);
                 break;
 
             case R.id.bt_encryplay://解密播放,自定义路径
-                reLoadSourcePlay(FildDir + "/" + "终于等到你.mp3.aitrip");
+                reLoadSourcePlay(FildDir + "/" + "m12.mp3.aitrip");
                 break;
 
             case R.id.already_player://播放进度时间，点击上一首
@@ -461,6 +483,7 @@ public class TestPlayerActivity extends AppCompatActivity implements View.OnClic
      */
     private void reLoadSourcePlay(String url) {
         Timber.e("重载资源file1---:" + url);
+        ToastUtil.show("播放的url为:"+url,Toast.LENGTH_LONG);
         //重载资源
         videoSource.releaseSource();
         seekBar.setMax(0);

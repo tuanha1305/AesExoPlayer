@@ -48,7 +48,7 @@ public class AitripDataSourceFactory  implements DataSource.Factory {
         this.listener = listener;
         this.baseDataSourceFactory = baseDataSourceFactory;
     }
-
+    //新创建一个 datasource
     @Override
     public AitripDataSource createDataSource() {
         return new AitripDataSource(context, listener, baseDataSourceFactory.createDataSource());

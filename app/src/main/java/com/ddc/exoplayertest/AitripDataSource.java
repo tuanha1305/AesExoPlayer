@@ -97,7 +97,7 @@ public class AitripDataSource implements DataSource {
         this.listener = listener;
         this.baseDataSource = Assertions.checkNotNull(baseDataSource);
     }
-
+    //解密的地方
     @Override
     public long open(DataSpec dataSpec) throws IOException {
         Assertions.checkState(dataSource == null);
