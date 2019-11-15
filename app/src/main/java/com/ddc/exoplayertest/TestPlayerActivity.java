@@ -102,8 +102,14 @@ public class TestPlayerActivity extends AppCompatActivity implements View.OnClic
     //        "m12.mp3";
 
     //视频
+    //private static String deng = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
+    //        "6030286a31c824c96564850929e996c1.mp4";
+
+
+
+    //视频
     private static String deng = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
-            "6030286a31c824c96564850929e996c1.mp4";
+            "321.mp4";
 
     //private static String deng = "file:///android_asset"+ File.separator +
     //        "fileSequence0.ts";

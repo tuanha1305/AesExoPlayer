@@ -9,7 +9,6 @@ import com.google.android.exoplayer2.upstream.ContentDataSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
-import com.google.android.exoplayer2.upstream.FileDataSource;
 import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.Util;
@@ -43,7 +42,7 @@ public class AitripDataSource implements DataSource {
     private DataSource rtmpDataSource;
 
     private DataSource dataSource;
-    private String Aikey = "1231231241241243";
+    private String WEKey = "1231231241241243";
 
 
     /**
@@ -110,7 +109,7 @@ public class AitripDataSource implements DataSource {
             //如果路径尾包含aitrip的文件名，使用解密类
             if (dataSpec.uri.getPath().endsWith(".aitrip")) {
                 Aes128DataSource aes128DataSource =
-                        new Aes128DataSource(getFileDataSource(), Aikey.getBytes(), Aikey.getBytes());
+                        new Aes128DataSource(getFileDataSource(), WEKey.getBytes(), WEKey.getBytes());
                 dataSource = aes128DataSource;
             } else {//否则，正常解析mp3
                 if (dataSpec.uri.getPath().startsWith("/android_asset/")) {
@@ -156,7 +155,7 @@ public class AitripDataSource implements DataSource {
     private DataSource getFileDataSource() {
         if (fileDataSource == null) {
             Timber.e("解密：666666666,");
-            fileDataSource = new FileDataSource(listener);
+            fileDataSource = new WMFileDataSource(listener);
         }
         return fileDataSource;
     }
