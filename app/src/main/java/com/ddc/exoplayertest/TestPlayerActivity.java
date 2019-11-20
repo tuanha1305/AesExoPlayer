@@ -76,6 +76,10 @@ public class TestPlayerActivity extends AppCompatActivity implements View.OnClic
     Button btDecrypt;
     @BindView(R.id.bt_encryplay)
     Button btEncryplay;
+    @BindView(R.id.bt_dencryplay)
+    Button btDencryplay;
+    @BindView(R.id.bt_dencryplay1)
+    Button btDencryplay1;
     @BindView(R.id.player_view)
     SimpleExoPlayerView simpleExoPlayerView;
     private ExtractorMediaSource videoSource;
@@ -134,6 +138,8 @@ public class TestPlayerActivity extends AppCompatActivity implements View.OnClic
         allPlayerTime.setOnClickListener(this);
         startPlay.setOnClickListener(this);
         btEncryplay.setOnClickListener(this);
+        btDencryplay.setOnClickListener(this);
+        btDencryplay1.setOnClickListener(this);
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
@@ -388,6 +394,13 @@ public class TestPlayerActivity extends AppCompatActivity implements View.OnClic
                 reLoadSourcePlay(FildDir + "/" + "m12.mp3.aitrip");
                 break;
 
+            case R.id.bt_dencryplay:
+                AESHelper.decryptFile(Aikey,FildDir + "/" + "m12.mp3.aitrip",FildDir + "/" +"decryVideo.mp4");
+                break;
+
+            case R.id.bt_dencryplay1:
+                reLoadSourcePlay(FildDir + "/" + "decryVideo.mp4");
+                break;
             case R.id.already_player://播放进度时间，点击上一首
                 previous();
 
