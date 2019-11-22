@@ -107,17 +107,17 @@ public class AitripDataSource implements DataSource {
         Timber.e("解密：000000," + scheme + ",path:" + dataSpec.uri.getPath());
         if (Util.isLocalFileUri(dataSpec.uri)) {
             //如果路径尾包含aitrip的文件名，使用解密类
-            if (dataSpec.uri.getPath().endsWith(".aitrip")) {
-                Aes128DataSource aes128DataSource =
-                        new Aes128DataSource(getFileDataSource(), WEKey.getBytes(), WEKey.getBytes());
-                dataSource = aes128DataSource;
-            } else {//否则，正常解析mp3
+            //if (dataSpec.uri.getPath().endsWith(".aitrip")) {
+            //    Aes128DataSource aes128DataSource =
+            //            new Aes128DataSource(getFileDataSource(), WEKey.getBytes(), WEKey.getBytes());
+            //    dataSource = aes128DataSource;
+            //} else {//否则，正常解析mp3
                 if (dataSpec.uri.getPath().startsWith("/android_asset/")) {
                     dataSource = getAssetDataSource();
                 } else {
                     dataSource = getFileDataSource();
                 }
-            }
+            //}
         } else if (SCHEME_ASSET.equals(scheme)) {
             dataSource = getAssetDataSource();
         } else if (SCHEME_CONTENT.equals(scheme)) {

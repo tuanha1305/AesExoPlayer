@@ -97,6 +97,7 @@ import javax.crypto.spec.SecretKeySpec;
   @Override
   public int read(byte[] buffer, int offset, int readLength) throws IOException {
     Assertions.checkState(cipherInputStream != null);
+    //todo 这不是又加密了一次么？
     int bytesRead = cipherInputStream.read(buffer, offset, readLength);
     if (bytesRead < 0) {
       return C.RESULT_END_OF_INPUT;
