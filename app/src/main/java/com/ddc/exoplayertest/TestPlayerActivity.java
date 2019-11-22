@@ -29,7 +29,6 @@ import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -193,7 +192,7 @@ public class TestPlayerActivity extends AppCompatActivity implements View.OnClic
         //自定义解密工厂
         aitripFactory = new AitripDataSourceFactory(this,
                 Util.getUserAgent(this, "aitrip"), bandwidthMeter);
-        extractorsFactory = new DefaultExtractorsFactory();
+        extractorsFactory = new WMExtractorsFactory();
 //        factory = new DiyExtractorsFactory();
         FileDataSource fileDataSource = new FileDataSource();
         //test mp3
